@@ -3,6 +3,9 @@
 (require net/url)
 (require json)
 
+(provide set-auth-token
+         get)
+
 (define authcode "")
 (define dataurl "https://www.quandl.com/api/v3/datasets/")
 
@@ -14,10 +17,21 @@
       ""
       (string-append param "=" value)))
 
-;(define (query-string code #:collapse [collapse ""]
-
+(define (datestring->date s)
+  (let ([date (string-split s "-")])
+    (make-date 0
+               0
+               0
+               (string->number (third date))
+               (string->number (second date))
+               (string->number (first date))
+               0
+               0
+               0
+               0)))
+               
 (define (get code #:collapse [collapse ""])
-  (let ([data (read-json
+  (let ([query (read-json
                (get-pure-port
                 (string->url
                  (string-append dataurl code ".json?"
@@ -26,16 +40,12 @@
                                   (param->string "auth_token" authcode)
                                   (param->string "collapse" collapse))
                                  "&")))))])
-    (if (hash-has-key? data 'quandl_error)
-        (error (hash-ref (hash-ref data 'quandl_error) 'message))
-        (hash-ref (hash-ref data 'dataset) 'data))))
+    (if (hash-has-key? query 'quandl_error)
+        (error (hash-ref (hash-ref query 'quandl_error) 'message))
+        (let ([data (hash-ref (hash-ref query 'dataset) 'data)])
+          (map (lambda (x)
+                 (match x
+                   [(list datestring value) (list (datestring->date datestring) value)]))
+                  data)))))
   
-
-;(read-json
-; (get-pure-port (string->url "https://www.quandl.com/api/v1/datasets.json?auth_token=bGydZiyLShYZidQ_sBuj")))
-
-;EIA/PET_RWTC_D
-;(read-json
- ;(get-pure-port (string->url "https://www.quandl.com/api/v3/datasets/EIA/PET_RWTC_D.json?auth_token=bGydZiyLShYZidQ_sBuj&collapse=annual")))
-
-;(get "EIA/PET_RWTC_D")
+; Example (get "EIA/PET_RWTC_D")
