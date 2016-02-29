@@ -4,6 +4,6 @@
                "rackunit-lib"))
 (define build-deps '("scribble-lib" "racket-doc"))
 (define scribblings '(("scribblings/racket-quandl.scrbl" ())))
-(define pkg-desc "Counters and cross-referencing for use with pollen")
+(define pkg-desc "Grab data from Quandl with racket for fun and profit")
 (define version "0.1")
 (define pkg-authors '(mstill))
