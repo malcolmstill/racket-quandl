@@ -3,8 +3,8 @@
                     racket/base]]
 
 @title{racket-quandl}
-@author{Malcolm}
+@author{Malcolm Still}
 
 @defmodule[racket-quandl]
 
-Package Description Here
+A wee library for grabbing data from Quandl.
