@@ -1,1 +1,0 @@
-("6.4" ("4102cf150bfd419c921c5aefcb1cd3ad42862421" . "1c9dcebe16d8b7cee0a90dd7f3dcf3b9a381b842") (collects #"json" #"main.rkt") (collects #"net" #"url.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt") (indirect collects #"racket" #"match" #"gen-match.rkt") (indirect collects #"racket" #"match" #"parse.rkt"))
