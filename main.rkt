@@ -58,7 +58,7 @@
         (let ([data (hash-ref (hash-ref query 'dataset) 'data)])
           (map (lambda (x)
                  (match x
-                   [(list datestring value) (list (datestring->date datestring) value)]))
+                   [(list datestring value ...) (cons (datestring->date datestring) value)]))
                   data)))))
   
 ; Example (get "EIA/PET_RWTC_D")
